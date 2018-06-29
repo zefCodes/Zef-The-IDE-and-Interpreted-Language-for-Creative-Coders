@@ -1,0 +1,441 @@
+#include "DataType.h"
+#include "typeSolver.h"
+#include <cmath>
+#include "instructions.h"
+
+string OR[2][2] = {
+	{"TRUE","TRUE"},
+	{"TRUE","FALSE"},
+};
+bool insideFunction = false;
+string AND[2][2] = {
+	{"TRUE","FALSE"},
+	{"FALSE","FALSE"},
+};
+
+float strToFloat(string str) {
+		float num = atof(str.c_str());
+		//cout << "\nCONVERTED "<<num<<std::flush;
+		return num;
+}
+string convToString(float num) {
+    //THIS FUNCTION CONVERTS A STRING TO AN INTEGER VALUE.
+    //IT IS USED TO READ THE HIGHSCORE FROM THE TEXT FILE
+    string s;
+    stringstream out;
+    out << num;
+    s = out.str();
+    return s;
+}
+
+string andV(TOKEN A, TOKEN B) {
+		return AND[A.NAME-241][B.NAME-241];
+
+}
+string orV(TOKEN A, TOKEN B) {
+		return OR[A.NAME-241][B.NAME-241];
+}
+
+TOKEN searchFor(TOKEN T) {
+	TOKEN_TYPE Type;
+	TOKENS name = T.NAME;
+	string value = T.lexeme;
+	int lineNo = T.lineNo;
+	int column = T.column;
+	int ID = T.tokenID;
+	bool found=false;
+		for (std::map<string,VARIABLE>::iterator it=var_tab.begin(); it!=var_tab.end(); ++it) {
+				if (it->first==value) {
+						Type=it->second.T;
+						value=it->second.val;
+						name=it->second.name;
+						lineNo=it->second.lineNo;
+						column=it->second.column;
+						found=true;
+						break;
+				}
+		}
+		if (!found) {
+			cout<< "\nVariable use error on line " << lineNo << ", column " << column << " : " << "'"<<value<<"' "<<"has not been declared."<<std::flush;
+			exit(1);
+		}
+		cout<<"GOTR "<<tokenToString(name)<<std::flush;
+		TOKEN newT = {Type,name,value,lineNo,column,ID};
+		return newT;
+}
+void checkCanInc(TOKEN M, ACTION ACT) {
+	if (M.TYPE==IDENTIFIER) {
+		M = searchFor(M);
+	}
+	else {
+		cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " with " <<typeToString(M.TYPE)<< std::flush;
+		exit(1);
+	}
+	if(!typeCheck(ACT,M)) {
+		cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " with " <<typeToString(M.TYPE)<< std::flush;
+		exit(1);
+	}
+}
+vector<TOKEN> performAction(int Action, vector<TOKEN> stack) {
+			ACTION ACT = (ACTION) Action;
+
+
+			if (Action==ACTION_POP) {
+				stack.pop_back();
+				if (insideFunction) {
+						addFuncInstruction(ACTION_POP);
+				}
+				else {
+					addInstruction(ACTION_POP);
+				}
+				return stack;
+			}
+			else if (Action==ACTION_NEW_FUNC) {
+				insideFunction=true;
+			}
+			else if (Action==ACTION_END_FUNC) {
+				insideFunction=false;
+			}
+			TOKEN B = stack[stack.size()-1];
+			TOKEN M = stack[stack.size()-2];
+			TOKEN A = stack[stack.size()-3];
+			stack.pop_back();
+			stack.pop_back();
+
+
+
+		    switch(ACT) {
+					case ACTION_NEW_FUNC : {
+						cout<<"NEW FUNC: "<<M.lexeme;
+						addFuncInstruction(ACTION_NEW_FUNC,M);
+						break;
+					}
+					case ACTION_END_FUNC : {
+						addFuncInstruction(ACTION_END_FUNC);
+						break;
+					}
+					case ACTION_FUNC_CALL : {
+						cout<<"FUNCTION CALL: " << A.lexeme;
+
+						if (insideFunction) {
+								addFuncInstruction(ACTION_FUNC_CALL,A);
+						}
+						else {
+							addInstruction(ACTION_FUNC_CALL,A);
+						}
+						break;
+					}
+					case ACTION_RETURN : {
+						cout<<"RETURN: " << A.lexeme;
+
+						if (insideFunction) {
+								addFuncInstruction(ACTION_RETURN,A);
+						}
+						else {
+							addInstruction(ACTION_RETURN,A);
+						}
+						break;
+					}
+					case ACTION_POS : {
+					// 		TOKEN T = {CONSTANT, CONST, B.lexeme, B.lineNo, B.column, B.tokenID};
+			    //     cout<<"\n + "<<T.lexeme<<" = "<<T.lexeme<<"\n" <<std::flush;
+			    //     stack.push_back(T);
+					// 		break;
+					if (insideFunction) {
+							addFuncInstruction(ACTION_POS,B);
+					}
+					else {
+						addInstruction(ACTION_POS,B);
+					}
+					break;
+					}
+					case ACTION_NEG : {
+							// TOKEN T = {CONSTANT, CONST, convToString(strToFloat(B.lexeme)*-1), B.lineNo, B.column, B.tokenID};
+			        // cout<<"\n + "<<T.lexeme<<" = "<<T.lexeme<<"\n" <<std::flush;
+			        // stack.push_back(T);
+							// break;
+							if (insideFunction) {
+									addFuncInstruction(ACTION_NEG,B);
+							}
+							else {
+								addInstruction(ACTION_NEG,B);
+							}
+							break;
+
+					}
+		      case ACTION_ASSIGN: {
+							// storeVariable(A.lexeme,B);
+							if (insideFunction) {
+									addFuncInstruction(ACTION_ASSIGN,A,B);
+							}
+							else {
+								addInstruction(ACTION_ASSIGN,A,B);
+							}
+
+			        // cout<<A.lexeme<<" = "<<B.lexeme<<"\n"<<std::flush;
+		        	break;
+		      }
+		      case ACTION_MUL: {
+							//float a=strToFloat(A.lexeme);
+							//float b=strToFloat(B.lexeme);
+							if (insideFunction) {
+								addFuncInstruction(ACTION_MUL,A,B);
+							}
+							else {
+								addInstruction(ACTION_MUL,A,B);
+							}
+							//TOKEN T = {CONSTANT, CONST, convToString(a*b), B.lineNo, B.column, B.tokenID};
+			        //cout<< a<<" * "<<b<<" = "<<a*b<<"\n" <<std::flush;
+			        //stack.pop_back();
+			        //stack.push_back(T);
+		        	break;
+		      }
+		      case ACTION_ADD: {
+						if (insideFunction) {
+								addFuncInstruction(ACTION_ADD,A,B);
+						}
+						else {
+							addInstruction(ACTION_ADD,A,B);
+						}
+						// 		if (A.TYPE==STR_LITERAL || B.TYPE==STR_LITERAL) {
+						// 			cout<< A.lexeme+B.lexeme << "<<"<<std::flush;
+						// 			TOKEN T = {STR_LITERAL, STR_LIT, A.lexeme+B.lexeme, A.lineNo, A.column, A.tokenID};
+						// 			stack.pop_back();
+						// 			stack.push_back(T);
+						// 		}
+						// 		else {
+						// 			float a=strToFloat(A.lexeme);
+						// 			float b=strToFloat(B.lexeme);
+						// 			TOKEN T = {CONSTANT, CONST, convToString(a+b), B.lineNo, B.column, B.tokenID};
+						// 			cout<< a<<" + "<<b<<" = "<<a+b<<"\n" <<std::flush;
+						// 			stack.pop_back();
+						// 			stack.push_back(T);
+						// 		}
+		        break;
+		      }
+		      case ACTION_DIV: {
+						if (insideFunction) {
+								addFuncInstruction(ACTION_DIV,A,B);
+						}
+						else {
+							addInstruction(ACTION_DIV,A,B);
+						}
+						// float a=strToFloat(A.lexeme);
+						// float b=strToFloat(B.lexeme);
+            //
+						// 	TOKEN T = {CONSTANT, CONST, convToString(a/b), B.lineNo, B.column, B.tokenID};
+						// 	cout<< a<<" / "<<b<<" = "<<a/b<<"\n" <<std::flush;
+						// 	stack.pop_back();
+						// 	stack.push_back(T);
+					  break;
+		      }
+		      case ACTION_SUB: {
+						if (insideFunction) {
+								addFuncInstruction(ACTION_SUB,A,B);
+						}
+						else {
+							addInstruction(ACTION_SUB,A,B);
+						}
+						// float a=strToFloat(A.lexeme);
+						// float b=strToFloat(B.lexeme);
+            //
+						// 	TOKEN T = {CONSTANT, CONST, convToString(a-b), B.lineNo, B.column, B.tokenID};
+						// 	cout<<a<<" - "<<b<<" = "<<a-b<<"\n" <<std::flush;
+						// 	stack.pop_back();
+						// 	stack.push_back(T);
+            //
+		        break;
+		       }
+					 case ACTION_LOR : {
+						 // 	string truth = orV(A,B);
+							//  TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+							//  stack.pop_back();
+							//  stack.push_back(T);
+             //
+						 // break;
+					 }
+					 case ACTION_LAND : {
+						 // string truth = andV(A,B);
+							// TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+							// stack.pop_back();
+							// stack.push_back(T);
+						 // break;
+					 }
+					 case ACTION_IS_EQ : {
+						 // 	  string truth;
+						 // 		if (A.lexeme==B.lexeme) {
+							// 		truth = "TRUE";
+							// 	}
+							// 	else {
+							// 		truth = "FALSE";
+							// 	}
+							//  TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+							//  stack.pop_back();
+							//  stack.push_back(T);
+             //
+						 // break;
+					 }
+					 // case ACTION_NOT_EQ : {
+						//  string truth;
+						//  if (A.lexeme!=B.lexeme) {
+						// 	 truth = "TRUE";
+						//  }
+						//  else {
+						// 	 truth = "FALSE";
+						//  }
+						// TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+						// stack.pop_back();
+						// stack.push_back(T);
+           //
+						//  break;
+					 // }
+					 // case ACTION_POW : {
+						//  float a=strToFloat(A.lexeme);
+ 						// 	float b=strToFloat(B.lexeme);
+           //
+ 						// 	TOKEN T = {CONSTANT, CONST, convToString(pow(a,b)), B.lineNo, B.column, B.tokenID};
+           //
+ 						// 	stack.pop_back();
+ 						// 	stack.push_back(T);
+           //
+						//  break;
+					 // }
+					 // case ACTION_MOD : {
+           //
+						//  float a=strToFloat(A.lexeme);
+						// 	 float b=strToFloat(B.lexeme);
+           //
+						// 	 TOKEN T = {CONSTANT, CONST, convToString(fmod(a,b)), B.lineNo, B.column, B.tokenID};
+           //
+						// 	 stack.pop_back();
+						// 	 stack.push_back(T);
+           //
+						//  break;
+					 // }
+					 // case ACTION_GT : {
+           //
+						//  float a=strToFloat(A.lexeme);
+						// 	 float b=strToFloat(B.lexeme);
+           //
+						// 	 string truth;
+						// 	 if (a>b) {
+						// 		 truth = "TRUE";
+						// 	 }
+						// 	 else {
+						// 		 truth = "FALSE";
+						// 	 }
+						// 	TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+           //
+						// 	 stack.pop_back();
+						// 	 stack.push_back(T);
+           //
+						//  break;
+					 // }
+					 // case ACTION_LT : {
+           //
+						//  float a=strToFloat(A.lexeme);
+						// 	 float b=strToFloat(B.lexeme);
+           //
+						// 	 string truth;
+						// 	 if (a<b) {
+						// 		 truth = "TRUE";
+						// 	 }
+						// 	 else {
+						// 		 truth = "FALSE";
+						// 	 }
+						// 	TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+           //
+						// 	 stack.pop_back();
+						// 	 stack.push_back(T);
+           //
+						//  break;
+					 // }
+					 // case ACTION_LTE : {
+           //
+						//  float a=strToFloat(A.lexeme);
+						// 	 float b=strToFloat(B.lexeme);
+           //
+						// 	 string truth;
+						// 	 if (a<=b) {
+						// 		 truth = "TRUE";
+						// 	 }
+						// 	 else {
+						// 		 truth = "FALSE";
+						// 	 }
+						// 	TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+           //
+						// 	 stack.pop_back();
+						// 	 stack.push_back(T);
+           //
+						//  break;
+					 // }
+					 // case ACTION_GTE : {
+           //
+						//  float a=strToFloat(A.lexeme);
+						// 	 float b=strToFloat(B.lexeme);
+           //
+						// 	 string truth;
+						// 	 if (a>=b) {
+						// 		 truth = "TRUE";
+						// 	 }
+						// 	 else {
+						// 		 truth = "FALSE";
+						// 	 }
+						// 	TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+           //
+						// 	 stack.pop_back();
+						// 	 stack.push_back(T);
+           //
+						//  break;
+					 // }
+					 case ACTION_PLUS_ASS : {
+						 if (insideFunction) {
+								 addFuncInstruction(ACT,A,B);
+						 }
+						 else {
+							 addInstruction(ACT,A,B);
+						 }
+						 break;
+					 }
+					 case ACTION_SUB_ASS : {
+						 if (insideFunction) {
+								addFuncInstruction(ACT,A,B);
+						}
+						else {
+							addInstruction(ACT,A,B);
+						}
+						break;
+					 }
+					 case ACTION_PWR_ASS : {
+						 if (insideFunction) {
+								addFuncInstruction(ACT,A,B);
+						}
+						else {
+							addInstruction(ACT,A,B);
+						}
+						break;
+					 }
+					 case ACTION_DIV_ASS : {
+						 if (insideFunction) {
+								addFuncInstruction(ACT,A,B);
+						}
+						else {
+							addInstruction(ACT,A,B);
+						}
+						break;
+					 }
+					 case ACTION_MUL_ASS : {
+						 if (insideFunction) {
+								 addFuncInstruction(ACT,A,B);
+						 }
+						 else {
+							 addInstruction(ACT,A,B);
+						 }
+						 break;
+					  }
+						brea
+		    }
+
+
+    return stack;
+}

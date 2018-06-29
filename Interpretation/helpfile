@@ -1,0 +1,1126 @@
+for (std::map<int,instruction>::iterator it=function_instructions.begin(); it!=function_instructions.end(); ++it) {
+  std::cout << "\n[ instruction: " << it->first << " : " << itostring(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+  int InstrucitonID = it->first;
+  INSTRUCTION i = it->second.i;
+  std::map<int, instruction> currentinstructions;
+  if (func){
+    cout<<"CALLING: "<<name;
+    std::cout << "\n[ cinstruction: " << it->first << " : " << itostring(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+    currentinstructions[it->first]=it->second;
+  }
+  if (it->second.i==ENDFUNC) {
+    cout<<"HHHHHHHHHHHHHHHHHHHHHHHHHHH";
+    //interpret(currentinstructions);
+    for (std::map<int,instruction>::iterator it=currentinstructions.begin(); it!=currentinstructions.end(); ++it) {
+      std::cout << "\n[ currentinstruction: " << it->first << " : " << itostring(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+    }
+    break;
+  }
+  if (it->second.a.lexeme==name) {
+      func=true;
+  }
+  else if (it->second.i==ENDFUNC) {
+      func=false;
+  }
+
+  while(1) {
+    cout<<"\n BEFORE POP CURR TOP OF STACKw -->> "<< Items.back().lexeme <<std::flush;
+    Items.pop_back();
+    cout<<"\n AFTER POP CURR TOP OF STACKw -->> "<< Items.back().lexeme <<"\n"<<std::flush;
+    if (Items.back().lexeme==name&&Items.back().TYPE==KEYWORD) {
+      break;
+    }
+  }
+
+
+[ Adding instruction: 10 : PUSHT : ) : NULL]CALLING: funct3
+[ Adding instruction: 11 : PUSHT : { : NULL]CALLING: funct3
+[ Adding instruction: 12 : PUSHT : return : NULL]CALLING: funct3
+[ Adding instruction: 13 : PUSHT : 2 : NULL]CALLING: funct3
+[ Adding instruction: 14 : PUSHT : + : NULL]CALLING: funct3
+[ Adding instruction: 15 : PUSHT : main : NULL]CALLING: funct3
+[ Adding instruction: 16 : PUSHT : ( : NULL]CALLING: funct3
+[ Adding instruction: 17 : PUSHT : ) : NULL]CALLING: funct3
+[ Adding instruction: 18 : CALL : main : NULL]CALLING: funct3
+[ Adding instruction: 19 : ADDI : 2 : main]CALLING: funct3
+[ Adding instruction: 20 : PUSHT : ; : NULL]CALLING: funct3
+[ Adding instruction: 21 : RET : return : NULL]CALLING: funct3
+[ Adding instruction: 22 : PUSHT : } : NULL]CALLING: funct3
+[ Adding instruction: 23 : ENDFUNC : NULL : NULL]
+
+
+
+
+
+
+
+
+
+switch(ACT) {
+  case ACTION_POST_INC : {
+    checkCanInc(M, ACT);
+    string valuePOST = var_tab[M.lexeme].val;
+    TOKEN T = {CONSTANT, CONST, valuePOST, M.lineNo, M.column, M.tokenID};
+    Items.push_back(T);
+    var_tab[M.lexeme].val=convToString(strToFloat(valuePOST)+1);
+  }
+  case ACTION_POST_DEC : {
+    checkCanInc(M, ACT);
+    string valuePOST = var_tab[M.lexeme].val;
+    TOKEN T = {CONSTANT, CONST, valuePOST, M.lineNo, M.column, M.tokenID};
+    Items.push_back(T);
+    var_tab[M.lexeme].val=convToString(strToFloat(valuePOST)-1);
+  }
+  case ACTION_PRE_INC : {
+    checkCanInc(B, ACT);
+    string valuePRE = var_tab[B.lexeme].val;
+    string updatedValue = convToString(strToFloat(valuePRE)+1);
+    TOKEN T = {CONSTANT, CONST, updatedValue, B.lineNo, B.column, B.tokenID};
+    Items.push_back(T);
+    var_tab[B.lexeme].val=updatedValue;
+  }
+  case ACTION_PRE_DEC : {
+    checkCanInc(B, ACT);
+    string valuePRE = var_tab[B.lexeme].val;
+    string updatedValue = convToString(strToFloat(valuePRE)-1);
+    TOKEN T = {CONSTANT, CONST, updatedValue, B.lineNo, B.column, B.tokenID};
+    Items.push_back(T);
+    var_tab[B.lexeme].val=updatedValue;
+  }
+}
+}
+
+
+
+if (ACT==310||ACT==311||ACT==315||ACT==316) {
+
+  switch(ACT) {
+    case ACTION_POST_INC : {
+      checkCanInc(M, ACT);
+      string valuePOST = var_tab[M.lexeme].val;
+      TOKEN T = {CONSTANT, CONST, valuePOST, M.lineNo, M.column, M.tokenID};
+      Items.push_back(T);
+      var_tab[M.lexeme].val=convToString(strToFloat(valuePOST)+1);
+    }
+    case ACTION_POST_DEC : {
+      checkCanInc(M, ACT);
+      string valuePOST = var_tab[M.lexeme].val;
+      TOKEN T = {CONSTANT, CONST, valuePOST, M.lineNo, M.column, M.tokenID};
+      Items.push_back(T);
+      var_tab[M.lexeme].val=convToString(strToFloat(valuePOST)-1);
+    }
+    case ACTION_PRE_INC : {
+      checkCanInc(B, ACT);
+      string valuePRE = var_tab[B.lexeme].val;
+      string updatedValue = convToString(strToFloat(valuePRE)+1);
+      TOKEN T = {CONSTANT, CONST, updatedValue, B.lineNo, B.column, B.tokenID};
+      Items.push_back(T);
+      var_tab[B.lexeme].val=updatedValue;
+    }
+    case ACTION_PRE_DEC : {
+      checkCanInc(B, ACT);
+      string valuePRE = var_tab[B.lexeme].val;
+      string updatedValue = convToString(strToFloat(valuePRE)-1);
+      TOKEN T = {CONSTANT, CONST, updatedValue, B.lineNo, B.column, B.tokenID};
+      Items.push_back(T);
+      var_tab[B.lexeme].val=updatedValue;
+    }
+  }
+}
+else {
+  if (ACT>326&&ACT<332) {
+    TOKEN MASK;
+    if (A.TYPE==IDENTIFIER) {MASK = searchFor(A);}
+    else {
+      cout<< "\nOperatidon error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+      exit(1);
+    }
+    if (B.TYPE==IDENTIFIER) {B = searchFor(B);}
+    if(!typeCheck(MASK,ACT,B)) {
+      cout<< "\nOpseration error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+      exit(1);
+    }
+  }
+  else if (Action>309 && Action<317) {
+    if (B.TYPE==IDENTIFIER) {B = searchFor(B);}
+    if(!typeCheck(ACT,B)) {
+      cout<< "\nOpessration error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " with " <<typeToString(B.TYPE)<< std::flush;
+      exit(1);
+    }
+  }
+  else if (ACT!=ACTION_ASSIGN) {
+    if (A.TYPE==IDENTIFIER) {A = searchFor(A);}
+    if (B.TYPE==IDENTIFIER) {B = searchFor(B);}
+    if(!typeCheck(A,ACT,B)) {
+      cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+      exit(1);
+    }
+  }
+  else {
+    if(!typeCheck(A,ACT,B)) {
+      cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+      exit(1);
+    }
+  }
+}
+
+
+
+
+// FunctionData func = {{},0};
+// int index = 0;
+// while(Items.back().lexeme!="(") {
+//   TOKEN ARG = Items.back();
+//   if(ARG.TYPE!=IDENTIFIER) {
+//     cout<<"\nError on line "<< ARG.lineNo<<" column "<< ARG.column<<": Expecting an identifier, got "<<tokenToString(ARG.NAME);
+//   }
+//   else {
+//     func.arguments[index]=ARG.lexeme;
+//     index++;
+//     func.noArgs=index;
+//   }
+//   Items.pop_back();
+// }
+// Items.pop_back();
+// funcData[Items.back().lexeme]=func;
+
+
+struct FunctionData {
+    string arguments[50];
+    int noArgs;
+};
+
+
+std::map<string, VARIABLE> var_tab;
+Scope variableScope={NULL,var_tab};
+
+std::vector<TOKEN> Items;
+bool creatingVar=false;
+std::map<string,FunctionData> funcData;
+
+bool func=false;
+
+string OR[2][2] = {
+	{"TRUE","TRUE"},
+	{"TRUE","FALSE"},
+};
+
+string AND[2][2] = {
+	{"TRUE","FALSE"},
+	{"FALSE","FALSE"},
+};
+
+void logFunctions() {
+  cout<<"\nFUNCTIONS: ===========";
+  for (std::map<string,FunctionData>::iterator it=funcData.begin(); it!=funcData.end(); ++it) {
+    cout<<"\nfunction: "<<it->first << " args [" << it->second.noArgs<<"] : ";
+    for (int i = it->second.noArgs-1 ; i>=0; i--) {
+      cout<<"::"<<it->second.arguments[i];
+    }
+  }
+}
+
+void printItems() {
+  cout <<"\n\n"<< std::flush;
+  for(int i=0; i<Items.size(); i++) {
+    cout<<Items[i].lexeme<<" :: ";
+  }
+  cout <<"\n\n"<< std::flush;
+}
+
+float strToFloat(string str) {
+		float num = atof(str.c_str());
+		//cout << "\nCONVERTED "<<num<<std::flush;
+		return num;
+}
+string convToString(float num) {
+    //THIS FUNCTION CONVERTS A STRING TO AN INTEGER VALUE.
+    //IT IS USED TO READ THE HIGHSCORE FROM THE TEXT FILE
+    string s;
+    stringstream out;
+    out << num;
+    s = out.str();
+    return s;
+}
+
+string andV(TOKEN A, TOKEN B) {
+		return AND[A.NAME-241][B.NAME-241];
+
+}
+string orV(TOKEN A, TOKEN B) {
+		return OR[A.NAME-241][B.NAME-241];
+}
+
+bool exists(TOKEN T, Scope scope) {
+	string value = T.lexeme;
+	bool found=false;
+		for (std::map<string,VARIABLE>::iterator it=scope.vars.begin(); it!=scope.vars.end(); ++it) {
+				if (it->first==value) {
+						return true;
+				}
+		}
+    return false;
+}
+
+
+TOKEN searchFor(TOKEN T, Scope scope) {
+	TOKEN_TYPE Type;
+	TOKENS name = T.NAME;
+	string value = T.lexeme;
+	int lineNo = T.lineNo;
+	int column = T.column;
+	int ID = T.tokenID;
+	bool found=false;
+		for (std::map<string,VARIABLE>::iterator it=scope.vars.begin(); it!=scope.vars.end(); ++it) {
+				if (it->first==value) {
+						Type=it->second.T;
+						value=it->second.val;
+						name=it->second.name;
+						lineNo=it->second.lineNo;
+						column=it->second.column;
+						found=true;
+						break;
+				}
+		}
+		if (!found) {
+			cout<< "\nVariable use error on line " << lineNo << ", column " << column << " : " << "'"<<value<<"' "<<"has not been declared."<<std::flush;
+			exit(1);
+		}
+		cout<<"GOTR "<<tokenToString(name)<<std::flush;
+		TOKEN newT = {Type,name,value,lineNo,column,ID};
+		return newT;
+}
+
+void checkCanInc(TOKEN M, ACTION ACT, Scope scope) {
+	if (M.TYPE==IDENTIFIER) {
+		searchFor(M,scope);
+	}
+	else {
+		cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " with " <<typeToString(M.TYPE)<< std::flush;
+		exit(1);
+	}
+	if(!typeCheck(ACT,M)) {
+		cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " with " <<typeToString(M.TYPE)<< std::flush;
+		exit(1);
+	}
+}
+
+TOKEN interpret(map<int,instruction> instructions, Scope scope) {
+
+  for (std::map<int,instruction>::iterator it=instructions.begin(); it!=instructions.end(); ++it) {
+    printItems();
+    std::cout << "\n[ Executing instruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+
+    int InstrucitonID = it->first;
+    //cout<<"CURRRRRRRRRRR====> "<<Items.back().lexeme ;
+    string name = it->second.a.lexeme;
+    ACTION i = it->second.i;
+    TOKEN A = it->second.a;
+    ACTION ACT = i;
+    bool Evaluated;
+    switch (i) {
+      case ACTION_NEW_IF : {
+        TOKEN B = Items.back();
+        if(B.TYPE==BOOL_LITERAL) {
+          cout<<"\n VALUE FOR IF STATEMENT:=======================> "<<tokenToString(B.NAME);
+          if (B.NAME==TRUE) {
+            Evaluated=true;
+          }
+          else {
+            Evaluated=false;
+            it++;
+            while(it->second.i!=ACTION_END_IF){
+              it++;
+            }
+          }
+        }
+        else {
+          cout<<"\nError on line "<< B.lineNo<<" column "<< B.column<<": Expecting a boolean value, got "<<tokenToString(B.NAME);
+          exit(1);
+        }
+        break;
+      }
+      case ACTION_END_IF : {
+        break;
+      }
+      case ACTION_RETURN: {
+        Items.pop_back();
+        TOKEN B = Items.back();
+        if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+        cout<<"\nRETURNING: "<<B.lexeme;
+        return B;
+      }
+      case ACTION_PUSH: {
+        Items.push_back(it->second.a);
+        break;
+      }
+      case ACTION_POP: {
+        Items.pop_back();
+        break;
+      }
+      case ACTION_PARAM : {
+        FunctionData func = {{},0};
+        int index = 0;
+        while(Items.back().lexeme!="(") {
+          TOKEN ARG = Items.back();
+          if(ARG.TYPE!=IDENTIFIER) {
+            cout<<"\nError on line "<< ARG.lineNo<<" column "<< ARG.column<<": Expecting an identifier, got "<<tokenToString(ARG.NAME);
+            exit(1);
+          }
+          else {
+            func.arguments[index]=ARG.lexeme;
+            index++;
+            func.noArgs=index;
+          }
+          Items.pop_back();
+        }
+        Items.pop_back();
+        funcData[Items.back().lexeme]=func;
+        break;
+      }
+      case ACTION_FUNC_CALL: {
+          printItems();
+          int paramCount=0;
+          vector<VARIABLE> variables;
+          std::map<string, VARIABLE> nScope;
+          while(Items.back().lexeme!="(") {
+            paramCount++;
+            TOKEN T = Items.back();
+            if (T.TYPE==IDENTIFIER) {
+              T = searchFor(T,scope);
+            }
+            VARIABLE var = {T.lexeme,T.TYPE,T.NAME,T.lineNo,T.column};
+            variables.push_back(var);
+            Items.pop_back();
+          }
+          Items.pop_back();
+          TOKEN FUNCNAME = Items.back();
+          name=FUNCNAME.lexeme;
+          if (paramCount!=funcData[name].noArgs) {
+            cout<<"\nError on line "<< FUNCNAME.lineNo<<" column "<< FUNCNAME.column<<": function \"" <<name<<"\" requires "<<funcData[name].noArgs<<" argument(s)!";
+            exit(1);
+          }
+          else {
+            cout<<"ASSIGNING NEEEW SCOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP";
+            for (int i = variables.size()-1; i>=0;i--) {
+              nScope[funcData[name].arguments[i]]=variables[i];
+              cout<<"\n ASSIGNMENT FOR NEW SCOPE: =======================================================>";
+              //logAllVariables(newScope);
+              variables.pop_back();
+            }
+          }
+          Scope newScope = {&scope,nScope};
+          //cout<<"CURRRRRRRRRRR====> "<<Items.back().lexeme ;
+
+          int pushes=0;
+          //cout<<"\n --------------------------------CURRRENT TOP OF STACKw -->> "<< Items.back().lexeme <<std::flush;
+          std::map<int, instruction> currentinstructions;
+          bool found=false;
+          for (std::map<int,instruction>::iterator it=function_instructions.begin(); it!=function_instructions.end(); ++it) {
+            if (func) {
+              //std::cout << "\n[ Adding instruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+
+            }
+            else {
+              //std::cout << "\n[ searching instruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+
+            }
+            //std::cout << "\n[ searching instruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+            int InstrucitonID = it->first;
+            ACTION i = it->second.i;
+
+
+            if (func&&!(it->second.i==ACTION_END_FUNC)){
+
+
+              //std::cout << "\n[ADDING  instruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+              currentinstructions[it->first]=it->second;
+              //std::cout << "\n[ADDING  instruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+              if (it->second.i==ACTION_PUSH) {
+                pushes++;
+              }
+            }
+            if (it->second.a.lexeme==name&&func==false&&it->second.i==ACTION_NEW_FUNC) {
+              cout<<"\nCALLING: =================================================================================================================================>"<<name;
+              found=true;
+              //cout<<"\n<------FOOUND";
+              TOKEN PLACEHOLDER = {EOF_T, UNKNOWN_ILLEGAL, "$", -1,-1,-1};
+              Items.push_back(PLACEHOLDER);
+                func=true;
+            }
+            else if (it->second.i==ACTION_END_FUNC&&found) {
+                func=false;
+                found=false;
+                cout<<"\n<------END OF FUNC";
+                break;
+            }
+
+          }
+          if (currentinstructions.size()>0) {
+            // for (std::map<int,instruction>::iterator i=currentinstructions.begin(); i!=currentinstructions.end(); ++i) {
+            //   std::cout << "\n"<<currentinstructions.size()<< " [ executing instruction: " << i->first << " : " << tokenToString(i->second.i) <<" : "<< (i->second.a.lexeme) <<" : "<< (i->second.b.lexeme) <<']'<<std::flush;
+            // }
+
+            cout<<"\n NEW SCOPE==============================>: ";
+            TOKEN NE = interpret(currentinstructions, newScope);
+
+            cout<<"\n NO====>: " <<NE.lexeme;
+
+            while(1) {
+              //cout<<"\n BEFORE POP CURR TOP OF STACKw -->> "<< Items.back().lexeme <<std::flush;
+              Items.pop_back();
+              //cout<<"\n AFTER POP CURR TOP OF STACKw -->> "<< Items.back().lexeme <<"\n"<<std::flush;
+              if (Items.back().TYPE==EOF_T) {
+                Items.pop_back();
+                break;
+              }
+            }
+            Items.pop_back();
+            cout<<"\n --------------------------------CURR TOP OF STACKw -->> "<< Items.back().lexeme <<std::flush;
+            printItems();
+            cout<<"PUSHING "<<NE.lexeme;
+            Items.push_back(NE);
+
+            cout<<"\n --------------------------------CURR TOP OF STACKw -->> "<< Items.back().lexeme <<std::flush;
+            break;
+          }
+          else {
+            cout<<"\nError on line "<< A.lineNo<<" column "<< A.column<<": function \""<<name<<"\" has not been declared";
+            exit(1);
+          }
+
+        break;
+      }
+      case ACTION_ADD: {
+
+        TOKEN B = Items.back();
+        Items.pop_back();
+        TOKEN M = Items.back();
+        Items.pop_back();
+        TOKEN A = Items.back();
+        if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+        if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+
+        if(!typeCheck(A,ACTION_ADD,B)) {
+
+          cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACTION_MUL)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+          exit(1);
+        }
+
+        if (A.TYPE==STR_LITERAL || B.TYPE==STR_LITERAL) {
+        			cout<< A.lexeme+B.lexeme << "<<"<<std::flush;
+        			TOKEN T = {STR_LITERAL, STR_LIT, A.lexeme+B.lexeme, A.lineNo, A.column, A.tokenID};
+        			Items.pop_back();
+        			Items.push_back(T);
+        		}
+        		else {
+        			float a=strToFloat(A.lexeme);
+        			float b=strToFloat(B.lexeme);
+        			TOKEN T = {CONSTANT, CONST, convToString(a+b), B.lineNo, B.column, B.tokenID};
+        			cout<< a<<" + "<<b<<" = "<<a+b<<"\n" <<std::flush;
+        			Items.pop_back();
+        			Items.push_back(T);
+        		}
+        break;
+      }
+      case ACTION_MUL: {
+
+        TOKEN B = Items.back();
+  			Items.pop_back();
+  			TOKEN M = Items.back();
+  			Items.pop_back();
+  			TOKEN A = Items.back();
+        if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+        if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+
+        if(!typeCheck(A,ACTION_MUL,B)) {
+          cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACTION_MUL)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+          exit(1);
+        }
+
+        float a=strToFloat(A.lexeme);
+        float b=strToFloat(B.lexeme);
+        TOKEN T = {CONSTANT, CONST, convToString(a*b), B.lineNo, B.column, B.tokenID};
+        cout<<"\n"<< a<<" * "<<b<<" = "<<a*b <<std::flush;
+        Items.pop_back();
+        Items.push_back(T);
+
+        break;
+      }
+      case ACTION_CREATE_VAR : {
+        creatingVar=true;
+        break;
+      }
+      case ACTION_CHECK : {
+        if (creatingVar==true) {
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {
+             if (exists(A, scope)) {
+               cout<<"\nError on line "<< A.lineNo<<" column "<< A.column<<": redefinition of variable \""<<A.lexeme<<"\"";
+               exit(1);
+             }
+           }
+           else {
+             cout<<"\nError on line "<< A.lineNo<<" column "<< A.column<<": Expecting an identifier or expression, got \""<<tokenToString(A.NAME)<<"\"";
+             exit(1);
+           }
+           creatingVar=false;
+        }
+        break;
+      }
+      case FUNC_LOG : {
+        TOKEN A = Items.back();
+        A = searchFor(A,scope);
+        cout<<"\n"<<A.lexeme;
+      }
+      case ACTION_ASSIGN: {
+        printItems();
+        TOKEN B = Items.back();
+  			Items.pop_back();
+  			TOKEN M = Items.back();
+  			Items.pop_back();
+  			TOKEN A = Items.back();
+        if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+
+        scope = storeVariable(A.lexeme,B, scope);
+        logAllVariables(scope);
+        cout<<"\nSTORING "<<A.lexeme<<" = "<<B.lexeme<<"\n"<<std::flush;
+        break;
+      }
+      case ACTION_POS : {
+        TOKEN B = Items.back();
+        Items.pop_back();
+        TOKEN M = Items.back();
+        Items.pop_back();
+        TOKEN A = Items.back();
+        if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+        if(!typeCheck(ACT,B)) {
+          cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " with " <<typeToString(B.TYPE)<< std::flush;
+          exit(1);
+        }
+    		TOKEN T = {CONSTANT, CONST, B.lexeme, B.lineNo, B.column, B.tokenID};
+        cout<<"\n + "<<T.lexeme<<" = "<<T.lexeme<<"\n" <<std::flush;
+        Items.push_back(T);
+    		break;
+      }
+      case ACTION_NEG : {
+        TOKEN B = Items.back();
+        Items.pop_back();
+        TOKEN M = Items.back();
+        Items.pop_back();
+        TOKEN A = Items.back();
+        if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+        if(!typeCheck(ACT,B)) {
+          cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " with " <<typeToString(B.TYPE)<< std::flush;
+          exit(1);
+        }
+
+        TOKEN T = {CONSTANT, CONST, convToString(strToFloat(B.lexeme)*-1), B.lineNo, B.column, B.tokenID};
+        cout<<"\n + "<<T.lexeme<<" = "<<T.lexeme<<"\n" <<std::flush;
+        Items.push_back(T);
+        break;
+        }
+        case ACTION_PLUS_ASS : {
+          TOKEN B = Items.back();
+          Items.pop_back();
+          TOKEN M = Items.back();
+          Items.pop_back();
+          TOKEN A = Items.back();
+          TOKEN MASK;
+          if (A.TYPE==IDENTIFIER) {MASK = searchFor(A,scope);}
+          else {
+            cout<< "\nOperatidon error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+          if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+          if(!typeCheck(MASK,ACT,B)) {
+            cout<< "\nOpseration error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+          scope.vars[A.lexeme].val=convToString(strToFloat(scope.vars[A.lexeme].val) + strToFloat(B.lexeme));
+          break;
+        }
+        case ACTION_SUB_ASS : {
+          TOKEN B = Items.back();
+          Items.pop_back();
+          TOKEN M = Items.back();
+          Items.pop_back();
+          TOKEN A = Items.back();
+          TOKEN MASK;
+          if (A.TYPE==IDENTIFIER) {MASK = searchFor(A,scope);}
+          else {
+            cout<< "\nOperatidon error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+          if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+          if(!typeCheck(MASK,ACT,B)) {
+            cout<< "\nOpseration error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+
+          scope.vars[A.lexeme].val=convToString(strToFloat(scope.vars[A.lexeme].val) - strToFloat(B.lexeme));
+          break;
+        }
+        case ACTION_PWR_ASS : {
+          TOKEN B = Items.back();
+          Items.pop_back();
+          TOKEN M = Items.back();
+          Items.pop_back();
+          TOKEN A = Items.back();
+          TOKEN MASK;
+          if (A.TYPE==IDENTIFIER) {MASK = searchFor(A,scope);}
+          else {
+            cout<< "\nOperatidon error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+          if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+          if(!typeCheck(MASK,ACT,B)) {
+            cout<< "\nOpseration error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+          scope.vars[A.lexeme].val=convToString(pow(strToFloat(scope.vars[A.lexeme].val),strToFloat(B.lexeme)));
+          break;
+        }
+        case ACTION_DIV_ASS : {
+          TOKEN B = Items.back();
+          Items.pop_back();
+          TOKEN M = Items.back();
+          Items.pop_back();
+          TOKEN A = Items.back();
+          TOKEN MASK;
+          if (A.TYPE==IDENTIFIER) {MASK = searchFor(A,scope);}
+          else {
+            cout<< "\nOperatidon error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+          if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+          if(!typeCheck(MASK,ACT,B)) {
+            cout<< "\nOpseration error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+          scope.vars[A.lexeme].val=convToString(strToFloat(scope.vars[A.lexeme].val) / strToFloat(B.lexeme));
+          break;
+        }
+        case ACTION_MUL_ASS : {
+          TOKEN B = Items.back();
+          Items.pop_back();
+          TOKEN M = Items.back();
+          Items.pop_back();
+          TOKEN A = Items.back();
+          TOKEN MASK;
+          if (A.TYPE==IDENTIFIER) {MASK = searchFor(A,scope);}
+          else {
+            cout<< "\nOperatidon error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+          if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+          if(!typeCheck(MASK,ACT,B)) {
+            cout<< "\nOpseration error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+          scope.vars[A.lexeme].val=convToString(strToFloat(scope.vars[A.lexeme].val) * strToFloat(B.lexeme));
+          break;
+        }
+        case ACTION_DIV: {
+          TOKEN B = Items.back();
+          Items.pop_back();
+          TOKEN M = Items.back();
+          Items.pop_back();
+          TOKEN A = Items.back();
+
+
+          if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+          if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+
+          float a=strToFloat(A.lexeme);
+          float b=strToFloat(B.lexeme);
+
+          if(!typeCheck(A,ACT,B)) {
+            cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+
+          	TOKEN T = {CONSTANT, CONST, convToString(a/b), B.lineNo, B.column, B.tokenID};
+          	cout<< a<<" / "<<b<<" = "<<a/b<<"\n" <<std::flush;
+          	Items.pop_back();
+          	Items.push_back(T);
+          break;
+        }
+        case ACTION_SUB: {
+          TOKEN B = Items.back();
+          Items.pop_back();
+          TOKEN M = Items.back();
+          Items.pop_back();
+          TOKEN A = Items.back();
+
+          if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+          if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+
+          float a=strToFloat(A.lexeme);
+          float b=strToFloat(B.lexeme);
+
+          if(!typeCheck(A,ACT,B)) {
+            cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+            exit(1);
+          }
+
+          	TOKEN T = {CONSTANT, CONST, convToString(a-b), B.lineNo, B.column, B.tokenID};
+          	cout<<a<<" - "<<b<<" = "<<a-b<<"\n" <<std::flush;
+          	Items.pop_back();
+          	Items.push_back(T);
+
+          break;
+         }
+         case ACTION_NOT : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           if(!typeCheck(ACT,B)) {
+             cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " with " <<typeToString(B.TYPE)<< std::flush;
+             exit(1);
+           }
+           string truth;
+           if (B.lexeme=="FALSE") {
+             truth = "TRUE";
+           }
+           else {
+             truth = "FALSE";
+           }
+          TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+          Items.push_back(T);
+          break;
+         }
+         case ACTION_LOR : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           if(!typeCheck(A,ACT,B)) {
+             cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+             exit(1);
+           }
+           	string truth = orV(A,B);
+             TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+             Items.pop_back();
+           	Items.push_back(T);
+
+           break;
+         }
+         case ACTION_LAND : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           string truth = andV(A,B);
+            TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+            Items.pop_back();
+            Items.push_back(T);
+           break;
+         }
+         case ACTION_IS_EQ : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           	  string truth;
+           		if (A.lexeme==B.lexeme) {
+            		truth = "TRUE";
+            	}
+            	else {
+            		truth = "FALSE";
+            	}
+             TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+             Items.pop_back();
+           	Items.push_back(T);
+
+           break;
+         }
+         case ACTION_NOT_EQ : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           string truth;
+           if (A.lexeme!=B.lexeme) {
+          	 truth = "TRUE";
+           }
+           else {
+          	 truth = "FALSE";
+           }
+          TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+          Items.pop_back();
+          Items.push_back(T);
+
+           break;
+         }
+         case ACTION_POW : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           if(!typeCheck(A,ACT,B)) {
+             cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+             exit(1);
+           }
+           float a=strToFloat(A.lexeme);
+          	float b=strToFloat(B.lexeme);
+
+          	TOKEN T = {CONSTANT, CONST, convToString(pow(a,b)), B.lineNo, B.column, B.tokenID};
+
+          	Items.pop_back();
+          	Items.push_back(T);
+
+           break;
+         }
+         case ACTION_MOD : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           if(!typeCheck(A,ACT,B)) {
+             cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+             exit(1);
+           }
+           float a=strToFloat(A.lexeme);
+          	 float b=strToFloat(B.lexeme);
+
+          	 TOKEN T = {CONSTANT, CONST, convToString(fmod(a,b)), B.lineNo, B.column, B.tokenID};
+
+          	 Items.pop_back();
+          	 Items.push_back(T);
+
+           break;
+         }
+         case ACTION_GT : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           if(!typeCheck(A,ACT,B)) {
+             cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+             exit(1);
+           }
+           float a=strToFloat(A.lexeme);
+          	 float b=strToFloat(B.lexeme);
+
+          	 string truth;
+          	 if (a>b) {
+          		 truth = "TRUE";
+          	 }
+          	 else {
+          		 truth = "FALSE";
+          	 }
+          	TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+
+          	 Items.pop_back();
+          	 Items.push_back(T);
+
+           break;
+         }
+         case ACTION_LT : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           if(!typeCheck(A,ACT,B)) {
+             cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+             exit(1);
+           }
+           float a=strToFloat(A.lexeme);
+          	 float b=strToFloat(B.lexeme);
+
+          	 string truth;
+          	 if (a<b) {
+          		 truth = "TRUE";
+          	 }
+          	 else {
+          		 truth = "FALSE";
+          	 }
+          	TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+
+          	 Items.pop_back();
+          	 Items.push_back(T);
+
+           break;
+         }
+         case ACTION_LTE : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           if(!typeCheck(A,ACT,B)) {
+             cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+             exit(1);
+           }
+           float a=strToFloat(A.lexeme);
+          	 float b=strToFloat(B.lexeme);
+
+          	 string truth;
+          	 if (a<=b) {
+          		 truth = "TRUE";
+          	 }
+          	 else {
+          		 truth = "FALSE";
+          	 }
+          	TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+
+          	 Items.pop_back();
+          	 Items.push_back(T);
+
+           break;
+         }
+         case ACTION_GTE : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           if (A.TYPE==IDENTIFIER) {A = searchFor(A,scope);}
+           if (B.TYPE==IDENTIFIER) {B = searchFor(B,scope);}
+           if(!typeCheck(A,ACT,B)) {
+             cout<< "\nOperation error on line " << M.lineNo <<" column "<< M.column <<" : Attempt to "<<tokenToString(ACT)<< " a " << typeToString(A.TYPE)<<"("<<A.lexeme<<")"<< " and " << typeToString(B.TYPE)<<"("<<B.lexeme<<")"<< std::flush;
+             exit(1);
+           }
+           float a=strToFloat(A.lexeme);
+          	 float b=strToFloat(B.lexeme);
+
+          	 string truth;
+          	 if (a>=b) {
+          		 truth = "TRUE";
+          	 }
+          	 else {
+          		 truth = "FALSE";
+          	 }
+          	TOKEN T = {BOOL_LITERAL, getToken(truth), truth,  B.lineNo, B.column, B.tokenID};
+
+          	 Items.pop_back();
+          	 Items.push_back(T);
+
+           break;
+         }
+         case ACTION_POST_INC : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           checkCanInc(M, ACT, scope);
+           string valuePOST = scope.vars[M.lexeme].val;
+           TOKEN T = {CONSTANT, CONST, valuePOST, M.lineNo, M.column, M.tokenID};
+           Items.push_back(T);
+           scope.vars[M.lexeme].val=convToString(strToFloat(valuePOST)+1);
+           break;
+         }
+         case ACTION_POST_DEC : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           checkCanInc(M, ACT, scope);
+           string valuePOST = scope.vars[M.lexeme].val;
+           TOKEN T = {CONSTANT, CONST, valuePOST, M.lineNo, M.column, M.tokenID};
+           Items.push_back(T);
+           scope.vars[M.lexeme].val=convToString(strToFloat(valuePOST)-1);
+           break;
+         }
+         case ACTION_PRE_INC : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           checkCanInc(B, ACT, scope);
+           string valuePRE = scope.vars[B.lexeme].val;
+           string updatedValue = convToString(strToFloat(valuePRE)+1);
+           TOKEN T = {CONSTANT, CONST, updatedValue, B.lineNo, B.column, B.tokenID};
+           Items.push_back(T);
+           scope.vars[B.lexeme].val=updatedValue;
+           break;
+         }
+         case ACTION_PRE_DEC : {
+           TOKEN B = Items.back();
+           Items.pop_back();
+           TOKEN M = Items.back();
+           Items.pop_back();
+           TOKEN A = Items.back();
+           checkCanInc(B, ACT, scope);
+           string valuePRE = scope.vars[B.lexeme].val;
+           string updatedValue = convToString(strToFloat(valuePRE)-1);
+           TOKEN T = {CONSTANT, CONST, updatedValue, B.lineNo, B.column, B.tokenID};
+           Items.push_back(T);
+           scope.vars[B.lexeme].val=updatedValue;
+           break;
+         }
+    }
+
+    cout<<"\n TOP OF STACK -->> "<< Items.back().lexeme <<std::flush;
+
+  }
+
+
+
+  // for (std::map<int,instruction>::iterator it=function_instructions.begin(); it!=function_instructions.end(); ++it) {
+  //   std::cout << "\n[ funcinstruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+  //   int InstrucitonID = it->first;
+  //   INSTRUCTION i = it->second.i;
+  // }
+  //
+  // for (std::map<int,instruction>::iterator it=instructions.begin(); it!=instructions.end(); ++it) {
+  //   std::cout << "\n[ instruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+  //   int InstrucitonID = it->first;
+  //   string name = it->second.a.lexeme;
+  //   INSTRUCTION i = it->second.i;
+  // }
+  TOKEN NUL = {CONSTANT, NULLT, "NULL", -1,-1,-1};
+
+  return NUL;
+}
+
+void logInstructions() {
+  for (std::map<int,instruction>::iterator it=function_instructions.begin(); it!=function_instructions.end(); ++it) {
+    std::cout << "\n[ funcinstruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+    int InstrucitonID = it->first;
+    ACTION i = it->second.i;
+  }
+cout<<"\n\n\n";
+  for (std::map<int,instruction>::iterator it=instructions.begin(); it!=instructions.end(); ++it) {
+    std::cout << "\n[ instruction: " << it->first << " : " << tokenToString(it->second.i) <<" : "<< (it->second.a.lexeme) <<" : "<< (it->second.b.lexeme) <<']'<<std::flush;
+  }
+}
+
+
+std::map<string, VARIABLE> nScope;
+Scope newScope = {nScope};
+scopeStack.push_back(newScope);

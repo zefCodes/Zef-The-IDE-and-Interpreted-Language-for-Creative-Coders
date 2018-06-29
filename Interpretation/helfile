@@ -1,0 +1,63 @@
+case ACTION_NEW_IF : {
+  TOKEN B = Items.back();
+  if(B.TYPE==BOOL_LITERAL) {
+    cout<<"\n VALUE FOR IF STATEMENT:=======================> "<<tokenToString(B.NAME);
+  if (B.NAME==TRUE) {
+    Evaluated=true;
+    std::map<string, VARIABLE> nScope;
+    Scope newScope = {nScope};
+    scopeStack.push_back(newScope);
+  }
+  else {
+    Evaluated=false;
+    it++;
+    while(it->second.i!=ACTION_OWISE_IF && it->second.i!=ACTION_END_IF && it->second.i!=ACTION_OWISE){
+      it++;
+      cout<<"SKIIPPPPINNNNNNNNNNNNNNNNNNNG";
+    }
+  }
+}
+else {
+  cout<<"\nError on line "<< B.lineNo<<" column "<< B.column<<": Expecting a boolean value, got "<<tokenToString(B.NAME);
+  exit(1);
+}
+break;
+}
+case ACTION_OWISE_BRANCH : {
+  TOKEN B = Items.back();
+  if(B.TYPE==BOOL_LITERAL) {
+    cout<<"\n VALUE FOR IF STATEMENT:=======================> "<<tokenToString(B.NAME);
+
+    if (Evaluated) {
+      it++;
+      while(it->second.i!=ACTION_END_IF){
+        it++;
+      }
+    }
+    else if (B.NAME==TRUE) {
+      Evaluated=true;
+      std::map<string, VARIABLE> nScope;
+      Scope newScope = {nScope};
+      scopeStack.push_back(newScope);
+    }
+    else {
+      Evaluated=false;
+      it++;
+      while(it->second.i!=ACTION_OWISE_IF && it->second.i!=ACTION_END_IF && it->second.i!=ACTION_OWISE){
+        it++;
+        cout<<"SKIIPPPPINNNNNNNNNNNNNNNNNNNG";
+      }
+    }
+  }
+  else {
+    cout<<"\nError on line "<< B.lineNo<<" column "<< B.column<<": Expecting a boolean value, got "<<tokenToString(B.NAME);
+    exit(1);
+  }
+  break;
+}
+case ACTION_END_IF : {
+  if (Evaluated) {
+    scopeStack.pop_back();
+  }
+  break;
+}
