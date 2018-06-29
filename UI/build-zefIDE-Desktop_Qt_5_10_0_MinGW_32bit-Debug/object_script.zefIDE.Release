@@ -1,0 +1,14 @@
+INPUT(
+./release\mainwindow.o
+./release\main.o
+./release\zefopengl.o
+./release\Parser.o
+./release\test.o
+./release\main.o
+./release\mainwindow.o
+./release\zefopengl.o
+./release\Parser.o
+./release\test.o
+./release\moc_mainwindow.o
+./release\moc_zefopengl.o
+);

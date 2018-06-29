@@ -1,0 +1,68 @@
+let padx = WIDTH/2 - 60;
+let pady = HEIGHT-25;
+
+let speedy=1;
+
+let initballx = random(0,WIDTH);
+let initbally = random(0,HEIGHT/2);
+let initRandDir =1;
+
+in prepare() {
+	setBackgroundColor(40,140,255,1);
+	setPaintColor(255,255,255);
+
+	let rand = random(0,5);
+	if (rand<2.5) {
+		initRandDir*=-1;
+	}
+}
+
+
+in drawBall() {
+	fillOval(initballx,initbally,10,10,50);
+}
+
+in updateBall() {
+	initbally+=speedy;
+	initballx+=initRandDir;
+
+	if(initbally<5) {
+		initbally=5;
+		speedy*=-1;
+	}
+
+	if (initballx>padx-50 && initbally>HEIGHT-35 && initballx<padx+50 ) {
+		initbally=HEIGHT-35;
+		speedy*=-1;
+	}
+
+	if(initballx<5 || initballx>WIDTH-5) {
+		initRandDir*=-1;
+	}
+
+	if (initbally>HEIGHT) {
+		initballx = random(0,WIDTH);
+		initbally = random(0,HEIGHT/2);
+	}
+}
+
+in render() {
+	updateBall();
+	clearCanvas();
+	padx = mouseX();
+	fillRect(padx-50,pady,100,20);
+	drawBall();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

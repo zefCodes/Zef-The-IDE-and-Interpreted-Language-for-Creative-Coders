@@ -1,0 +1,35 @@
+Program -> Global_stats
+Global_stats -> Global_decs Global_stats | EPSILON
+Global_decs -> Expr ; | Func_declaration | Variable_declaration
+Stats -> Stat Stats | EPSILON
+If_statement -> if ( Expr ) { Stats } Owise
+Owise -> owise Otherwise_branch | EPSILON
+Otherwise_branch -> if ( Expr ) { Stats } Owise | { Stats }
+Until_statement -> until ( Expr ) { Stats }
+While_statement -> while ( Expr ) { Stats }
+For_statement -> for ( id from Expr to Expr step Expr ) { Stats }
+Func_declaration -> in id ( Parameters ) { Stats }
+Returns -> Expr | EPSILON
+Stat -> Variable_declaration | Expr ; | If_statement | Until_statement | For_statement | leave ; | return Returns ; | While_statement
+Parameters -> Expr Extra_parameters | EPSILON
+Extra_parameters -> , Expr Extra_parameters | EPSILON
+Expr -> Expr1 Expra
+Expra -> -= Expr1 Expra | += Expr1 Expra | /= Expr1 Expra | *= Expr1 Expra | ^= Expr1 Expra | = Expr1 Expra | EPSILON
+Expr1 -> Expr2 Exprb
+Exprb -> or Expr2 Exprb | EPSILON
+Expr2 -> Expr3 Exprc
+Exprc -> and Expr3 Exprc | EPSILON
+Expr3 -> Expr4 Exprd
+Exprd -> != Expr4 Exprd | ?= Expr4 Exprd | EPSILON
+Expr4 -> Expr5 Expre
+Expre -> <= Expr5 Expre | >= Expr5 Expre | > Expr5 Expre | < Expr5 Expre | EPSILON
+Expr5 -> Expr6 Exprf
+Exprf -> - Expr6 Exprf | + Expr6 Exprf | EPSILON
+Expr6 -> Expr7 Exprg
+Exprg -> * Expr7 Exprg  | % Expr7 Exprg | ^ Expr7 Exprg | / Expr7 Exprg | EPSILON
+Expr7 -> ++ Expr8 | -- Expr8 | + Expr8 | - Expr8 | isnot Expr8 | Expr8
+Expr8 -> Expr9 Op
+Op -> ++ | -- | EPSILON
+Expr9 -> ( Expr ) | id FuncOrData | true | false | const | " str_lit " | [ Parameters ]
+FuncOrData -> ( Parameters ) | [ Parameters ] | EPSILON
+Variable_declaration -> let id Expra ;

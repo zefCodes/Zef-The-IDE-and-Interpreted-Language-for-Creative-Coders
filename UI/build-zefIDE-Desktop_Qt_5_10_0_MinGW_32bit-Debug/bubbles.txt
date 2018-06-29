@@ -1,0 +1,29 @@
+let time = 0;
+
+in prepare(){
+  setPaintColor(255,255,255);
+  setBackgroundColor(242,242,242,1);
+}
+
+in render(){
+clearCanvas();
+
+let i = 0;
+  while (i < 360){
+    let x = cos(radians(i)) * 50 + WIDTH / 2;
+    let y = sin(radians(i)) *100 + HEIGHT / 2;
+    let w = sin(radians(time+i )) * 200;
+    w = abs(w);
+
+    let col=abs(i);
+    setPaintColor(col,0,88);
+
+    fillOval(x, y, w/2, w/2, 50);
+ 	i+=5;
+  }
+  time+=3;
+}
+
+
+
+

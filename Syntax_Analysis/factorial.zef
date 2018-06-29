@@ -1,0 +1,12 @@
+//This script calculates the factorial of a number
+
+in factorial(n) {
+  if (n<1){
+    return 1;
+  }
+  consolenl("Doing " + n + " * " +  n-1 + " factorial");
+  return n * factorial(n-1)  ;
+}
+
+let n = 5;
+consolenl(n + " factorial = " + factorial(n));

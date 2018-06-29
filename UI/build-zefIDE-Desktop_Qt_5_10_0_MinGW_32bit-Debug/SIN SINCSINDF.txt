@@ -1,0 +1,43 @@
+let num = 20;
+let steps; 
+let sz;
+let offSet;
+let theta = 0; 
+let angle;
+let TWO_PI = 6.2831855;
+let PI = 6.2831855/2;
+
+in prepare() {
+  setLineWeight(3);
+  setPaintColor(14,120,200);
+  steps = 22;
+}
+
+in render() {
+    setBackgroundColor(20,20,20,1);
+    translate(WIDTH/2, HEIGHT/2);
+    angle=0;
+    let i = 0;
+   while (i<num) {
+    sz = i*steps;
+    let offSet = TWO_PI/i;
+    let arcEnd = abs(sin(theta+offSet))*TWO_PI;
+    setPaintColor(14+sin(theta)*20,sin(theta)*255,sin(theta)*200);
+    drawArc(0, 0, sz*0.4, sz*0.4, degrees(PI), degrees(arcEnd*1.3), 50);
+	i++;  
+   }
+  theta += .01;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+

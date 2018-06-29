@@ -1,0 +1,80 @@
+Precedence
+ID, BOOL_LITERAL, STR_LITE, function_call, array_subscript, CONST, ++ (postfix), -- (postfix)
+ISNOT, !, ++ (prefix), -- (prefix), -(unary), (unary)+
+/, *, %, ^
+-, +
+>=, <=, >, <
+!=, ?=
+AND, &&
+OR, ||
+-=, +=, /=, *=, ^=, =
+                  or -> OR 
+					  | ||			  
+                 and -> AND
+				      | &&
+                 not -> ISNOT
+                      | !
+    extra_parameters -> , expr extra_parameters 
+                      | EPSILON
+          parameters -> expr extra_parameters 
+                      | EPSILON
+       function_call -> ID  ( parameters )
+     array_subscript -> ID [ parameters ]
+variable_declaration -> ID assignment
+          assignment -> ASSIGN expr SEMI_COLON
+                      | SEMI_COLON
+                expr -> expr1 expr_a
+              expr_a -> -= expr
+                      | += expr
+                      | /= expr		
+                      | *= expr		
+                      | ^= expr		
+					  | EPSILON
+               expr1 -> expr2 expr_b
+              expr_b -> or expr1		
+					  | EPSILON
+               expr2 -> expr3 expr_c
+              expr_c -> and expr2		
+					  | EPSILON
+               expr3 -> expr4 expr_d
+              expr_d -> != expr3
+                      | ?= expr3 
+					  | EPSILON
+               expr4 -> expr5 expr_e
+              expr_e -> <= expr4
+                      | >= expr4
+                      | > expr4
+                      | < expr4					  
+					  | EPSILON
+               expr5 -> expr6 expr_f
+              expr_f -> - expr5
+                      | + expr5					  
+					  | EPSILON
+               expr6 -> expr7 expr_g
+              expr_g -> * expr6
+                      | % expr6
+                      | ^ expr6
+                      | / expr6	  
+					  | EPSILON
+               expr7 -> ++ expr8
+                      | -- expr8
+                      | + expr8
+                      | - expr8
+                      | not expr8
+                      | expr8
+		       expr8 -> expr9 ++
+					  | expr9 --
+                      | expr9
+               expr9 -> (expr)		 
+                      | ID
+                      | TRUE
+                      | FALSE
+                      | CONST
+                      | STR_LIT
+					  | array_subscript
+                      | function_call
+					  
+					  
+					  
+					  
+	

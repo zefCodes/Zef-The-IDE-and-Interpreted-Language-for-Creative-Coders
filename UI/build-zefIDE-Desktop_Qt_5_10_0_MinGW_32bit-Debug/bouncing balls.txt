@@ -1,0 +1,152 @@
+in prepare() {
+	console("Setup Function");
+	setBackgroundColor(50,50,50,1);
+	setPaintColor(200,50,266);
+	setLineWeight(2);
+}
+
+//BALL BOUNCING SCRIPT
+//
+let xL=100;
+let yL = 100;
+let width = 100;
+let height = 100;
+let i = 1;
+let ballspeedy = 0;
+let ballspeedx=4;
+let ballspeedx2 =5;
+let acceleration = 0.07;
+let ballx = 100;
+let bally = 100;
+
+let energyLoss = 0.8;
+let energyLoss2 = 0.8;
+let energyLoss3 = 0.765;
+
+let ballspeedy2 = 0;
+let acceleration2 = 0.07;
+let ballx2 = 500;
+let bally2 = 100;
+let ballx3 = 600;
+let bally3 = 100;
+let ballspeedy3=0;
+let ballspeedx3 = 3.4;
+let animate = 0;
+let f = 1;
+let ee = 100;
+let number = 0;
+in drawBall() {
+
+		if (ballx>WIDTH || ballx<100) {
+			ballspeedx*=-1;
+		}
+
+		if (ballx2>WIDTH || ballx2<80) {
+			ballspeedx2*=-1;
+		}
+
+		if (ballx3>WIDTH || ballx3<120) {
+			ballspeedx3*=-1;
+		}
+
+
+if (bally>690) {
+		bally=690;
+		ballspeedy*=-energyLoss2;
+		ballspeedx*=energyLoss2;
+		//consolenl("ballyspeed: " + ballspeedy);
+	}
+	
+	let T = 50;
+	drawOval(ballx-50,bally,T,T,15);
+
+if (bally2>710) {
+		bally2=710;
+		ballspeedy2*=-energyLoss2;
+		ballspeedx2*=energyLoss2;
+		//consolenl("ballyspeed2: " + ballspeedy2);
+	}
+	T = 30;
+	drawOval(ballx2-50,bally2,T,T,15);
+	//consolenl("RENDER")
+	//drawOval(200+i,450,50,50,1);
+
+
+
+
+
+if (bally3>670) {
+		bally3=670;
+		ballspeedy3*=-energyLoss3;
+		ballspeedx3*=energyLoss3;
+		//consolenl("ballyspeed2: " + ballspeedy2);
+	}
+	T = 70;
+	drawOval(ballx3-50,bally3,T,T,15);
+	//consolenl("RENDER")
+	//drawOval(200+i,450,50,50,1);
+
+}
+
+in drawLines(x) {
+	let e = 0;
+	while(e<x) {
+		//setLineWeight(1);
+		drawLine(0,e*10*(e*0.4),1000,e*10);
+		drawLine(e*10,0,e*10*(e*0.5),1000);
+		e++;
+	}
+	//drawLine(50,50*(e*0.4),100,100);
+}
+
+in draw(m) {
+	drawBall();
+	//console("ball ");
+	//setPaintColor(20,223,23
+	drawLines(200);
+}
+
+in update() {
+	/*animate+=f;
+
+	if (animate>100 || animate<0) {
+		f*=-1;
+	}*/
+	bally+=ballspeedy;
+	ballx+=ballspeedx;
+	ballx=ballx%(WIDTH+100);
+	ballspeedy+=acceleration;
+
+
+	bally2+=ballspeedy2;
+	ballx2+=ballspeedx2;
+	ballx2=ballx2%(WIDTH+100);
+	ballspeedy2+=acceleration2;
+
+
+	bally3+=ballspeedy3;
+	ballx3+=ballspeedx3;
+	ballx3=ballx3%(WIDTH+100);
+	ballspeedy3+=acceleration2;
+}
+let a = 1;
+
+in render() {
+
+	a++;
+
+     //setBackgroundColor(a/100,44,44,1);
+	//
+	
+	update();
+	clearCanvas();
+	//ballx++;
+
+	drawLine(0,740,1300,740);
+
+	draw(1);
+	//console("YO");
+	number=0;
+}
+
+

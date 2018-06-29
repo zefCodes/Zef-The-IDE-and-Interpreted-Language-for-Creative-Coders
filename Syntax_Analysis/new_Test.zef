@@ -1,0 +1,22 @@
+let speedx;
+let speedy=0;
+let xAcc;
+let yAcc=0.1;
+let xLoc = 400;
+let yLoc = 50;
+
+in setup() {
+	window(wHeight,wLength);
+}
+
+in render() {
+	
+	speedy+=yAcc;
+	drawCircle(xLoc,yLoc);
+	yLoc+=speedy;
+	
+	if (yLoc<=wHeight) {
+		yLoc*=-1;
+	}
+
+}

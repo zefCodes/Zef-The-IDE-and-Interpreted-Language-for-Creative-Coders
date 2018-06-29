@@ -1,0 +1,72 @@
+++ (prefix), -- (prefix), -(unary), (unary)+, SHOULD BE ON THE SAME LEVEL AS ! BUT HIDING FOR NOW
+
+Precedence
+
+ID, BOOL_LITERAL, STR_LITE, function_call, array_subscript, CONST, ++ (postfix), -- (postfix)
+ISNOT, !
+/, *, %, ^
+-, +
+>=, <=, >, <
+!=, ?=
+AND, &&
+OR, ||
+-=, +=, /=, *=, ^=, =
+                  or -> OR 
+					  | ||			  
+                 and -> AND
+				      | &&
+                 not -> ISNOT
+                      | !
+    extra_parameters -> , expression extra_parameters 
+                      | epsilon 
+          parameters -> expression extra_parameters 
+                      | epsilon
+       function_call -> ID  ( parameters )
+     array_subscript -> ID [ parameters ]
+variable_declaration -> ID assignment
+          assignment -> ASSIGN expression SEMI_COLON
+                      | SEMI_COLON
+          expression -> expression -= expression1 
+                      | expression += expression1
+                      | expression /= expression1
+                      | expression *= expression1
+                      | expression ^= expression1
+                      | expression = expression1
+					  | expression1
+         expression1 -> expression1 or expression2
+                      | expression2
+         expression2 -> expression2 and expression3
+                      | expression3
+		 expression3 -> expression3 != expression4
+                      | expression3 ?= expression4
+					  | expression4
+		 expression4 -> expression4 >= expression5
+		              | expression4 <= expression5
+                      | expression4 < expression5
+                      | expression4 > expression5
+					  | expression5
+         expression5 -> expression5 - expression6
+                      | expression5 + expression6
+					  | expression6
+         expression6 -> expression6 / expression7
+					  | expression6 * expression7
+                      | expression6 % expression7
+                      | expression6 ^ expression7
+					  | expression7
+         expression7 -> ++ expression8
+                      | -- expression8
+                      | + expression8
+                      | - expression8
+                      | not expression8
+                      | expression8
+		 expression8 -> expression9 ++
+					  | expression9 --
+                      | expression9
+         expression9 -> (expression)		 
+                      | ID
+                      | TRUE
+                      | FALSE
+                      | CONST
+                      | STR_LIT
+					  | array_subscript
+                      | function_call

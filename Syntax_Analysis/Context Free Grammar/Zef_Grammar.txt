@@ -1,0 +1,34 @@
+<program> ::= (<KEYWORD_IMPORT> <SEP_QUOTATION_MARK> <STR_LITERAL> <SEP_QUOTATION_MARK> <SEP_SEMI_COLON>)* (<global_statement>)*
+
+<global_statement> ::= (<function_declaration>)*
+					|  (<variable_declaration>)*
+
+<function_declaration> ::= <KEYWORD_IN> <KEYWORD_JOB> <IDENTIFIER> 
+					       <SEP_LEFT_PAREN> (<parameters>) <SEP_RIGHT_PAREN>
+					       <KEYWORD_DO> <SEP_LEFT_BRACES> (<local_statement><SEP_SEMI_COLON>)*  
+						   (<KEYWORD_RETURN><IDENTIFIER><SEP_SEMI_COLON>)? <SEP_RIGHT_BRACES>
+						  			
+<variable_declaration> ::= (<KEYWORD_MAKE> (<IDENTIFIER> (<SEP_COMMA> <IDENTIFIER>)*)?
+							<OP_EQUALS> (<expression1> (<SEP_COMMA> <expression1>)*)? <SEP_SEMI_COLON>
+							
+<parameters> ::= ((<IDENTIFIER>) (<SEP_COMMA> <IDENTIFIER>)*)?
+
+<local_statement> ::= <if_statement> <for> <until> <while> <variable_declaration> <inc_statement> <dec_statement>
+
+<if_statement>::=
+
+<for>::=
+
+<until>::=
+
+<while>::=
+
+<variable_declaration>::= 
+
+<inc_statement>::=
+
+<dec_statement>::=
+
+<expression> ::= 
+
+<expression1> ::= 

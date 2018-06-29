@@ -1,0 +1,56 @@
+	
+	______PRODUCTION______||____SEMANTIC RULES_____
+	Expr -> Expr1 Expra	  || Expra.inh = Expr1.val
+	                      || Expr.val = Expra.syn
+	Expra -> -= Expr      || Expra1.inh = Expra.inh - Expr.val 
+	                      || Expra.syn = Expra1.syn
+	| += Expr             ||
+	| /= Expr             ||
+	| *= Expr             ||
+	| ^= Expr             ||
+	| = ExprOrList        ||
+	| EPSILON             || Expra1.syn = Expra1.inh
+	ExprOrList -> Expr    ||
+	| List_data           ||
+	Expr1 -> Expr2 Exprb  ||
+	Exprb -> or Expr1     ||
+	| EPSILON             ||
+	Expr2 -> Expr3 Exprc  ||
+	Exprc -> and Expr2    ||
+	| EPSILON             ||
+	Expr3 -> Expr4 Exprd  ||
+	Exprd -> != Expr3     ||
+	| ?= Expr3            ||
+	| EPSILON             ||
+	Expr4 -> Expr5 Expre  ||
+	Expre -> <= Expr4     ||
+	| >= Expr4            ||
+	| > Expr4             ||
+	| < Expr4             ||
+	| EPSILON             ||
+	Expr5 -> Expr6 Exprf  ||
+	Exprf -> - Expr5      ||
+	| + Expr5             ||
+	| EPSILON             ||
+	Expr6 -> Expr7 Exprg  ||
+	Exprg -> * Expr6      ||
+	| % Expr6             ||
+	| ^ Expr6             ||
+	| / Expr6             ||
+	| EPSILON             ||
+	Expr7 -> ++ Expr8     ||
+	| -- Expr8            ||
+	| + Expr8             ||
+	| - Expr8             ||
+	| isnot Expr8         ||
+	| Expr8               ||
+	Expr8 -> Expr9 Op     ||
+	Op -> ++ 			  ||
+	| --                  ||
+	| EPSILON             ||
+	Expr9 -> ( Expr )     ||
+	| id FuncOrData       ||
+	| true                ||
+	| false               ||
+	| const               ||
+	| " str_lit "         ||

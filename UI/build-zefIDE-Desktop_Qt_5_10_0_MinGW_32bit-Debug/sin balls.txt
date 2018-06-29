@@ -1,0 +1,53 @@
+let rot = 0;
+let osc = 0;
+let movex=0;
+let speedx=9;
+let clear=0;
+
+let ballsx = [];
+let ballsy = [];
+
+in point(x, y) {
+	drawOval(x,y,2,2,10);
+}
+
+in prepare() {
+	setBackgroundColor(0,0,0,1);
+	setPaintColor(39,200,200);
+	setLineWeight(2);
+	let i = 0;
+	let NOBALLS=20;
+	let num = WIDTH/NOBALLS;
+	
+	while (i<NOBALLS) {
+			ballsx+=num*i;
+			ballsy+=HEIGHT/2;
+			i++;
+	}
+
+
+}
+
+in render() {
+	//clearCanvas();
+	let i = 0;
+	while (i<size(ballsx)) {
+		point(ballsx[i]-5,cos(osc+i)*(100)+HEIGHT/2);
+		ballsx[i]=ballsx[i]%(WIDTH-5);
+		ballsx[i]=ballsx[i]+(speedx)*abs(sin(i+10));
+		i++;
+	}
+	osc+=0.05;
+
+
+}
+
+in x(t) {
+	return 0;
+}
+
+in y(t) {
+	return 0;
+}
+
+

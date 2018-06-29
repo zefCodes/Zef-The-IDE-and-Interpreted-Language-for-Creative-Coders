@@ -1,0 +1,14 @@
+INPUT(
+./debug\mainwindow.o
+./debug\main.o
+./debug\zefopengl.o
+./debug\Parser.o
+./debug\test.o
+./debug\main.o
+./debug\mainwindow.o
+./debug\zefopengl.o
+./debug\Parser.o
+./debug\test.o
+./debug\moc_mainwindow.o
+./debug\moc_zefopengl.o
+);

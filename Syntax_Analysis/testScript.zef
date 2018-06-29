@@ -1,0 +1,10 @@
+in factorial( n ) {
+  if (n <1){
+    return 1;
+  }
+  console("Doing " + n + " * " +  n-1 + " factorial");
+  return n * factorial( n - 1 )  ;
+}
+
+let n = 5;
+console(n + " factorial = " + factorial(n));

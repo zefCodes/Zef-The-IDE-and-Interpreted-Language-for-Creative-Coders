@@ -1,0 +1,46 @@
+let steps = 0;
+let i=0; 
+let num=26;
+let theta = 0;
+let TWO_PI = 6.2831855;
+let color = 0;
+
+in prepare() {
+  steps=HEIGHT/num;
+  setBackgroundColor(20,20,20,1);
+
+}
+
+in render() {
+  setPaintColor(255,100 + sin(color)*60,39+abs(sin(color)*20));
+clearCanvas();
+ fillOval(WIDTH/2,HEIGHT/2,HEIGHT*0.25+sin(color)*10, HEIGHT*0.25+sin(color)*10,50);
+  i=0;
+   setPaintColor(20,20,20);
+let y = 2*steps;
+  while (y<HEIGHT-2*steps+1) {
+    let sw = abs(sin(theta+(TWO_PI/num*i)))*20;
+    let edge = 2*steps;
+    setLineWeight(sw);
+    drawLine(edge, y, WIDTH-edge, y);
+    i++;	
+	y+=steps;
+  }
+  theta += 0.04;
+  color+=0.01;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

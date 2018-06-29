@@ -1,0 +1,94 @@
+let mass = [];
+let positionX = [];
+let positionY = [];
+let velocityX = [];
+let velocityY = [];
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+in prepare() {
+	setPaintColor(64, 255, 255);
+	setBackgroundColor(20,20,20,1);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+in render() {
+	clearCanvas();
+	let particleA = 0;
+	while (particleA < size(mass)) {
+		let accelerationX = 0; 
+		let accelerationY = 0;
+		let particleB = 0; 
+
+		while (particleB < size(mass)) {
+			if (!(particleA ?= particleB)) {
+				//console("HERE");
+				//consolenl("particleA:    " + particleA +  ",   i"+ particleB );
+				let distanceX = positionX[particleB] - positionX[particleA];
+				let distanceY = positionY[particleB] - positionY[particleA];
+				//console("ROOT: " + root(9,2));
+				let distance = root(2,distanceX * distanceX + distanceY * distanceY);
+
+
+				//console("DISTANCE: " + distance);
+	
+
+				let force = (distance - 320) * mass[particleB]/1000/distance;
+				//consolenl("FORCE "+ force );	
+				accelerationX += force * distanceX;
+				accelerationY += force * distanceY;
+				//consolenl("AX "+ accelerationX );				
+
+			}
+			particleB++;
+		}
+		velocityX[particleA] = velocityX[particleA] * 0.99 + accelerationX * mass[particleA]/100;
+		velocityY[particleA] = velocityY[particleA] * 0.99 + accelerationY * mass[particleA]/100;
+		particleA++;
+	}
+
+	let particle = 0;
+
+	while(particle<size(mass)) {
+		positionX[particle] = positionX[particle] + velocityX[particle];
+		positionY[particle] = positionY[particle] + velocityY[particle];
+		fillOval(positionX[particle], positionY[particle], mass[particle], mass[particle],30);
+		particle++;
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+in addNewParticle() {
+	mass += (random(2, 50));
+	positionX += (mouseX());
+	positionY += (mouseY());
+	velocityX += (0);
+	velocityY += (0);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+in leftMousePress() {
+	addNewParticle();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

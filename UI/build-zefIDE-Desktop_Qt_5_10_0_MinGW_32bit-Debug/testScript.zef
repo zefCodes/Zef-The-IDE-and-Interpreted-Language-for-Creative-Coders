@@ -1,0 +1,6 @@
+in square( n ) {
+  consolenl(n+" times " + n + "=" + n*n);
+}
+
+let n = 5;
+square(n);

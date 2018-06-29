@@ -1,0 +1,20 @@
+let mouseDown=FALSE;
+
+in prepare() {	
+	setPaintColor(220,34,0);
+	setBackgroundColor(255,255,255,1);
+}
+
+in render() {
+	if(mouseDown?=TRUE) {
+			fillOval(mouseX(),mouseY(),2,2,4);	
+	}
+}
+
+in leftMousePress() {
+	mouseDown=TRUE;
+}
+
+in leftMouseRelease() {
+	mouseDown=FALSE;
+}
