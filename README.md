@@ -1,3 +1,5 @@
+THE CODE IN THIS PROJECT IS HORRENDOUS. IT IS HANDS DOWN THE WORST CODE THAT A MAN COULD EVER WRITE.
+
 #Zef---The-interpreter-and-IDE-for-creative-coders
 
 An IDE I built using C++ and QT Creator. In this repository you will
